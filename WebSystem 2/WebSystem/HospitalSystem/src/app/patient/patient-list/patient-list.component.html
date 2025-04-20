@@ -1,0 +1,73 @@
+<div class="patient-list-section">
+    <mat-card>
+      <mat-card-title>Patient List</mat-card-title>
+      <mat-card-content>
+        <!-- Search bar to filter patients -->
+        <mat-form-field appearance="fill" class="search-bar">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchTerm" placeholder="Search by name" />
+        </mat-form-field>
+  
+        <!-- Error message display -->
+        <div *ngIf="errorMessage" class="error-message">
+          <p>{{ errorMessage }}</p>
+          <button mat-button color="primary" (click)="loadPatients()">Retry</button>
+        </div>
+
+        <div *ngIf="isLoading" class="loading-spinner">
+          <p>Loading patients...</p>
+          <!-- Add a proper spinner here if you have MatProgressSpinner imported -->
+        </div>
+  
+        <table mat-table [dataSource]="filteredPatients()" class="mat-elevation-z8" *ngIf="!isLoading && !errorMessage">
+          <!-- Registration ID Column -->
+          <ng-container matColumnDef="regId">
+            <th mat-header-cell *matHeaderCellDef>Registration ID</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.regId }}</td>
+          </ng-container>
+  
+          <!-- Full Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Full Name</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.name }}</td>
+          </ng-container>
+  
+          <!-- Phone Column -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.phone }}</td>
+          </ng-container>
+  
+          <!-- Blood Group Column -->
+          <ng-container matColumnDef="bloodGroup">
+            <th mat-header-cell *matHeaderCellDef>Blood Group</th>
+            <td mat-cell *matCellDef="let patient">{{ patient.bloodGroup }}</td>
+          </ng-container>
+  
+          <!-- Actions Column (View, Edit and Delete buttons) -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let patient; let i = index">
+              <button mat-icon-button color="accent" (click)="viewPatient(patient)" matTooltip="View">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" (click)="editPatient(patient)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletePatient(i)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+        <!-- No patients message -->
+        <div *ngIf="!isLoading && !errorMessage && patients.length === 0" class="no-patients">
+          <p>No patients found.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

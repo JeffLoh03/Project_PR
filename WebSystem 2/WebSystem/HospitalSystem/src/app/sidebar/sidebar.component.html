@@ -1,0 +1,45 @@
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<div class="sidebar">
+  <ul class="sidebar-menu">
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-nav-item">
+        <i class="ri-dashboard-line"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/patient" routerLinkActive="active" class="sidebar-nav-item">
+        <i class="ri-user-add-line"></i>
+        <span>Patient Registration</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/medical-report" routerLinkActive="active" class="sidebar-nav-item">
+        <i class="ri-file-list-3-line"></i>
+        <span>Medical Report</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/insurance-form" routerLinkActive="active" class="sidebar-nav-item">
+        <i class="ri-file-list-line"></i>
+        <span>Insurance Forms</span>
+      </a>
+    </li>
+  </ul>
+  
+  <!-- Spacer to push the buttons to the bottom -->
+  <div class="sidebar-spacer"></div>
+  
+  <!-- Bottom buttons for settings and logout -->
+  <div class="sidebar-bottom-buttons">
+    <button class="sidebar-button settings-button" (click)="onSettingsClick()">
+      <i class="ri-settings-3-line"></i>
+      <span>Settings</span>
+    </button>
+    <button class="sidebar-button logout-button" (click)="onLogoutClick()">
+      <i class="ri-logout-box-r-line"></i>
+      <span>Logout</span>
+    </button>
+  </div>
+</div>

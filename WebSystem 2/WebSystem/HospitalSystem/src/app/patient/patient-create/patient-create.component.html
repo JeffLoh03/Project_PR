@@ -1,0 +1,138 @@
+<div class="patient-form-container">
+    <div class="patient-form-card">
+      <div class="form-header">
+        <span>{{ isEditing ? 'Edit Patient' : 'Patient Registration' }}</span>
+      </div>
+  
+      <form #form="ngForm" (ngSubmit)="onSavePatient()">
+        <div class="form-grid">
+          <!-- Registration ID -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Registration ID</mat-label>
+              <input matInput type="text" id="registrationId" name="registrationId" [(ngModel)]="patient.regId" required placeholder="Enter registration ID (e.g., REG1234)">
+              <mat-hint>Format: REG followed by 4 numbers (e.g., REG1234)</mat-hint>
+            </mat-form-field>
+          </div>
+  
+          <!-- Patient ID -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Patient ID</mat-label>
+              <input matInput type="text" id="patientId" name="patientId" [(ngModel)]="patient.patientId" required placeholder="Enter patient ID (e.g., P1234)">
+              <mat-hint>Format: P followed by 4 numbers (e.g., P1234)</mat-hint>
+            </mat-form-field>
+          </div>
+  
+          <!-- Full Name -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Full Name*</mat-label>
+              <input matInput type="text" id="name" name="name" [(ngModel)]="patient.name" required placeholder="Enter full name">
+            </mat-form-field>
+          </div>
+          
+          <!-- Age -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Age*</mat-label>
+              <input matInput type="number" id="age" name="age" [(ngModel)]="patient.age" required placeholder="Enter age">
+            </mat-form-field>
+          </div>
+          
+          <!-- Gender -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Gender*</mat-label>
+              <mat-select id="gender" name="gender" [(ngModel)]="patient.gender" required>
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+                <mat-option value="Other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <!-- Phone -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Phone*</mat-label>
+              <input matInput type="tel" id="phone" name="phone" [(ngModel)]="patient.phone" required placeholder="Enter phone number">
+            </mat-form-field>
+          </div>
+          
+          <!-- Email -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Email*</mat-label>
+              <input matInput type="email" id="email" name="email" [(ngModel)]="patient.email" required placeholder="Enter email">
+            </mat-form-field>
+          </div>
+          
+          <!-- Address -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Address*</mat-label>
+              <input matInput type="text" id="address" name="address" [(ngModel)]="patient.address" required placeholder="Enter address">
+            </mat-form-field>
+          </div>
+  
+          <!-- Date of Birth -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Date of Birth*</mat-label>
+              <input matInput [matDatepicker]="picker" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="patient.dateOfBirth" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+  
+          <!-- Blood Group -->
+          <div class="input-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Blood Group*</mat-label>
+              <mat-select id="bloodGroup" name="bloodGroup" [(ngModel)]="patient.bloodGroup" required>
+                <mat-option *ngFor="let bg of bloodGroups" [value]="bg">{{ bg }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <!-- Allergy -->
+          <div class="input-group full-width">
+            <mat-form-field appearance="fill">
+              <mat-label>Allergy</mat-label>
+              <textarea matInput id="allergy" name="allergy" [(ngModel)]="patient.allergy" placeholder="Enter allergy information"></textarea>
+            </mat-form-field>
+          </div>
+  
+          <!-- Medical History -->
+          <div class="input-group full-width">
+            <mat-form-field appearance="fill">
+              <mat-label>Medical History</mat-label>
+              <textarea matInput id="medicalHistory" name="medicalHistory" [(ngModel)]="patient.medicalHistory" placeholder="Enter medical history"></textarea>
+            </mat-form-field>
+          </div>
+  
+          <!-- Insurance Info -->
+          <div class="input-group full-width">
+            <mat-form-field appearance="fill">
+              <mat-label>Insurance Info</mat-label>
+              <input matInput id="insurance" name="insurance" [(ngModel)]="patient.insurance" placeholder="Enter insurance information">
+            </mat-form-field>
+          </div>
+  
+          <!-- Submit and Cancel Buttons -->
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+              {{ isEditing ? 'Update' : 'Register' }}
+            </button>
+            <button *ngIf="isEditing" mat-raised-button color="warn" type="button" (click)="cancelEdit()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Patient List Section -->
+  <app-patient-list (editPatientEvent)="onEditPatient($event)"></app-patient-list>
